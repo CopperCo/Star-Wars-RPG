@@ -1,0 +1,35 @@
+body {
+  background-image: url("../images/background2.jpg");
+  background-repeat: no-repeat, repeat;
+  background-size: auto;
+  font-family: "star_jediregular";
+}
+
+h1 {
+  font-family: "star_jedi_hollowregular";
+  text-align: center;
+  font-size: 75px;
+  color: yellow;
+}
+
+.character {
+  background-color: rgba(255, 255, 255, 0.829);
+  width: auto;
+  border: 2px;
+  border-style: solid;
+  border-color: beige;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 5px 5px 10px rgb(56, 56, 56);
+}
+
+.character img {
+  width: 150px;
+  border-radius: 5px;
+}
+
+button {
+  font-family: "star_jediregular";
+  padding: 10px;
+  border-radius: 2px;
+}
