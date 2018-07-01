@@ -1,7 +1,7 @@
 body {
   background-image: url("../images/background2.jpg");
   background-repeat: no-repeat, repeat;
-  background-size: auto;
+  background-size: cover;
   font-family: "star_jediregular";
 }
 
@@ -12,7 +12,10 @@ h1 {
   color: yellow;
 }
 
-.character {
+.character,
+.enemy,
+.fighter,
+.defender {
   background-color: rgba(255, 255, 255, 0.829);
   width: auto;
   border: 2px;
@@ -23,7 +26,10 @@ h1 {
   box-shadow: 5px 5px 10px rgb(56, 56, 56);
 }
 
-.character img {
+.character img,
+.enemy img,
+.defender img,
+.fighter img {
   width: 150px;
   border-radius: 5px;
 }
