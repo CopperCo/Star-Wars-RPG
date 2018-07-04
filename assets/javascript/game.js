@@ -32,7 +32,7 @@ function loadCharacter(character) {
         character.name +
         "</p><img src=" +
         character.image +
-        "><p>" +
+        "><p id='myHP'>" +
         character.hp +
         "</p></div>"
     );
@@ -58,7 +58,7 @@ function loadCharacter(character) {
         character.name +
         "</p><img src=" +
         character.image +
-        "><p>" +
+        "><p id='defenderHP'>" +
         character.hp +
         "</p></div>"
     );
@@ -82,24 +82,6 @@ $(document).ready(function() {
   for (name in characters) {
     loadCharacter(characters[name]);
   }
-
-  // $(".character").on("click", function() {
-  //   character = characters[this.id];
-  //   character.team = "my";
-  //   $(".available-characters").html("<div></div>");
-  //   for (name in characters) {
-  //     console.log(characters[name]);
-  //     if (characters[name].team != "my") {
-  //       characters[name].team = "enemies";
-  //     }
-  //     loadCharacter(characters[name]);
-  //   }
-  //   $(".enemy").on("click", function() {
-  //     console.log(this.id);
-  //     characters[this.id].team = "defender";
-  //     loadCharacter(characters[this.id]);
-  //   });
-  // });
 
   function selectDefender() {
     characters[this.id].team = "defender";
@@ -130,14 +112,11 @@ $(document).ready(function() {
     }
   }
 
-  function fight() {
-    characters[name].attackScore = attackScore * 2;
-  }
+  function fight() {}
 
   $(".character").on("click", selectCharacter);
 
   $("#attackBtn").on("click", function() {
-    alert("You attacked");
     fight();
   });
 });

@@ -1,8 +1,10 @@
 body {
-  background-image: url("../images/background2.jpg");
+  background-image: url("../images/background4.jpg");
   background-repeat: no-repeat, repeat;
   background-size: cover;
   font-family: "star_jediregular";
+  color: rgb(255, 255, 255);
+  line-height: 1.2em;
 }
 
 h1 {
@@ -17,20 +19,22 @@ h1 {
 .fighter,
 .defender {
   background-color: rgba(255, 255, 255, 0.829);
-  width: auto;
+  color: black;
   border: 2px;
   border-style: solid;
   border-color: beige;
-  border-radius: 5px;
+  border-radius: 3px;
   text-align: center;
   box-shadow: 5px 5px 10px rgb(56, 56, 56);
+  margin-bottom: 15px;
+  margin-right: 1px;
 }
 
 .character img,
 .enemy img,
 .defender img,
 .fighter img {
-  width: 150px;
+  width: 200px;
   border-radius: 5px;
 }
 
