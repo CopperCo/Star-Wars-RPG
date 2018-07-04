@@ -9,11 +9,7 @@ This is the Week 4 assignment from the UTM Full Stack Developer Bootcamp. I was 
 - HTML
 - CSS
 - Vanilla JavaScript
-  - Variables
-  - Event Listeners
-  - Functions
-  - If/Else Statements
-    -jQuery
+- jQuery
   - Click Events
   - Updating the DOM
 
