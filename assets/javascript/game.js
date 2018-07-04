@@ -1,122 +1,146 @@
-function newCharacter(name, imagePath, hp, attack, defend) {
+function createCharacterObject(name, imagePath, hp, attack, defAttack) {
   return {
     name: name,
     image: imagePath,
     hp: hp,
     attackScore: attack,
-    defendScore: defend,
     baseAttack: attack,
-    team: null
+    defenderAttack: defAttack,
+    className: "character",
+    location: "selectCharacter"
   };
 }
 
-function loadCharacter(character) {
-  if (character.team === null) {
-    $(".available-characters").append(
-      "<div class='col-md-3 character' id='" +
-        character.name +
-        "'><p> " +
-        character.name +
-        "</p><img src=" +
-        character.image +
-        "><p>" +
-        character.hp +
-        "</p></div>"
-    );
+function clickerContent(name, imagePath, hp, divClass) {
+  return (
+    "<div class='col-md-3 " +
+    divClass +
+    "' id='" +
+    name +
+    "'>" +
+    "<p> " +
+    name +
+    "</p>" +
+    "<img src=" +
+    imagePath +
+    ">" +
+    "<p>" +
+    hp +
+    "</p></div>"
+  );
+}
+
+function selectCharacter() {
+  yourCharacterName = this.id;
+  yourCharacter = characters[yourCharacterName];
+  yourCharacter.location = "yourCharacter";
+  for (characterName in characters) {
+    if (yourCharacterName != characterName) {
+      characters[characterName].location = "enemies";
+    }
   }
-  if (character.team === "my") {
-    $(".your-character").append(
-      "<div class='col-md-3 character' id='" +
-        character.name +
-        "'><p> " +
-        character.name +
-        "</p><img src=" +
-        character.image +
-        "><p id='myHP'>" +
-        character.hp +
-        "</p></div>"
-    );
-  }
-  if (character.team === "enemies") {
-    $(".enemies").append(
-      "<div class='col-md-3 enemy' id='" +
-        character.name +
-        "'><p> " +
-        character.name +
-        "</p><img src=" +
-        character.image +
-        "><p>" +
-        character.hp +
-        "</p></div>"
-    );
-  }
-  if (character.team === "defender") {
-    $(".defender-holder").append(
-      "<div class='col-md-3 defender' id='" +
-        character.name +
-        "'><p> " +
-        character.name +
-        "</p><img src=" +
-        character.image +
-        "><p id='defenderHP'>" +
-        character.hp +
-        "</p></div>"
-    );
+  updateUI();
+}
+
+function selectDefender() {
+  defenderCharacterName = this.id;
+  defenderCharacter = characters[defenderCharacterName];
+  defenderCharacter.location = "defender";
+  updateUI();
+}
+
+function fight() {
+  if (yourCharacterName && defenderCharacterName) {
+    yourCharacter = characters[yourCharacterName];
+    defenderCharacter = characters[defenderCharacterName];
+    console.log("You attacked for: ", yourCharacter.attackScore);
+    defenderCharacter.hp -= yourCharacter.attackScore;
+    yourCharacter.attackScore += yourCharacter.baseAttack;
+    if (defenderCharacter.hp > 0) {
+      yourCharacter.hp -= defenderCharacter.defenderAttack;
+      if (yourCharacter.hp <= 0) {
+        yourCharacterName = null;
+        $("#resetBtn").show();
+        alert("Game Over");
+      }
+    } else {
+      defenderCharacterName = null;
+      enemiesLeft -= 1;
+      if (enemiesLeft == 0) {
+        $("#resetBtn").show();
+        alert("You won");
+      }
+    }
+    updateUI();
   }
 }
 
-var characters = {
-  Rey: newCharacter("Rey", "assets/images/Rey.jpg", 150, 5, 3),
-  Luke: newCharacter("Luke", "assets/images/Luke-Skywalker.jpg", 120, 10, 1),
-  "Kylo-Ren": newCharacter(
-    "Kylo-Ren",
-    "assets/images/Kylo-Ren.jpg",
-    180,
-    12,
-    5
-  ),
-  Snoke: newCharacter("Snoke", "assets/images/Snoke.jpg", 80, 1, 1)
-};
-
-$(document).ready(function() {
-  for (name in characters) {
-    loadCharacter(characters[name]);
+function cleanScreen() {
+  for (var index in areas) {
+    $("." + areas[index]).html("");
   }
+}
 
-  function selectDefender() {
-    characters[this.id].team = "defender";
-    $("#" + this.id)
-      .detach()
-      .appendTo(".defender-holder")
-      .attr("class", "col-md-3 defender");
-  }
-
-  function selectCharacter() {
-    characters[this.id].team = "my";
-    $("#" + this.id)
-      .detach()
-      .unbind()
-      .appendTo(".your-character")
-      .attr("class", "col-md-3 fighter");
-    for (name in characters) {
-      console.log(name);
-      if (characters[name].team != "my") {
-        characters[name].team = "enemies";
-        $("#" + name)
-          .detach()
-          .appendTo(".enemies")
-          .attr("class", "col-md-3 enemy")
-          .unbind()
-          .click(selectDefender);
+function updateUI() {
+  cleanScreen();
+  for (var characterName in characters) {
+    var character = characters[characterName];
+    if (character.hp > 0) {
+      $("." + character.location).append(
+        clickerContent(
+          character.name,
+          character.image,
+          character.hp,
+          character.className
+        )
+      );
+      if (character.location == "selectCharacter") {
+        $("#" + character.name).click(selectCharacter);
+      } else if (
+        character.location == "enemies" &&
+        !defenderCharacterName &&
+        yourCharacterName
+      ) {
+        $("#" + character.name).click(selectDefender);
       }
     }
   }
+}
 
-  function fight() {}
+function newGame() {
+  characters = {
+    Rey: createCharacterObject("Rey", "assets/images/Rey.jpg", 120, 8, 15),
+    Luke: createCharacterObject(
+      "Luke",
+      "assets/images/Luke-Skywalker.jpg",
+      100,
+      14,
+      5
+    ),
+    "Kylo-Ren": createCharacterObject(
+      "Kylo-Ren",
+      "assets/images/Kylo-Ren.jpg",
+      150,
+      8,
+      20
+    ),
+    Snoke: createCharacterObject("Snoke", "assets/images/Snoke.jpg", 180, 7, 20)
+  };
+  yourCharacterName = null;
+  defenderCharacterName = null;
+  enemiesLeft = 3;
+  $("#resetBtn").hide();
+  $("#resetBtn").click(newGame);
+  $("#attackBtn").click(fight);
+  updateUI();
+}
 
-  $(".character").on("click", selectCharacter);
+var areas = ["selectCharacter", "yourCharacter", "enemies", "defender"];
+var characters;
+var yourCharacterName;
+var defenderCharacterName;
+var enemiesLeft;
 
-  $("#attackBtn").on("click", function() {
-    fight();
-  });
+$(document).ready(function() {
+  newGame();
 });

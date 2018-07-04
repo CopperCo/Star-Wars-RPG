@@ -14,10 +14,7 @@ h1 {
   color: yellow;
 }
 
-.character,
-.enemy,
-.fighter,
-.defender {
+.character {
   background-color: rgba(255, 255, 255, 0.829);
   color: black;
   border: 2px;
@@ -27,13 +24,9 @@ h1 {
   text-align: center;
   box-shadow: 5px 5px 10px rgb(56, 56, 56);
   margin-bottom: 15px;
-  margin-right: 1px;
 }
 
-.character img,
-.enemy img,
-.defender img,
-.fighter img {
+.character img {
   width: 200px;
   border-radius: 5px;
 }
