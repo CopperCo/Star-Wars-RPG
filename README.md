@@ -1,6 +1,6 @@
 # Star-Wars-RPG
 
-![Game Preview](StarWarsRPG-HK.png)
+![Game Preview](StarWarsRPG--HK.png)
 
 This is the Week 4 assignment from the UTM Full Stack Developer Bootcamp. I was tasked to create a game which will run in the browser and feature dynamically updated HTML and CSS and powered by my jQuery and JavaScript code.
 
