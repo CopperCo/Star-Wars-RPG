@@ -53,7 +53,6 @@ function fight() {
   if (yourCharacterName && defenderCharacterName) {
     yourCharacter = characters[yourCharacterName];
     defenderCharacter = characters[defenderCharacterName];
-    console.log("You attacked for: ", yourCharacter.attackScore);
     defenderCharacter.hp -= yourCharacter.attackScore;
     yourCharacter.attackScore += yourCharacter.baseAttack;
     if (defenderCharacter.hp > 0) {
